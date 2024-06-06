@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>walid calculator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+        }
+        .container {
+            text-align: center;
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .container > div {
+            grid-column: span 2;
+        }
+        .container input, .container button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .container button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>we welcomes you</h1>
+        </div>
+        <div>
+            <input type="date" id="dob" placeholder="date of birth">
+            <label for="dob">date of birth</label>
+        </div>
+        <div>
+            <input type="text" id="age" placeholder="Current age" readonly>
+            <label for="age">Current age</label>
+        </div>
+        <div>
+            <button onclick="calculateAge()">calculate now</button>
+            <button onclick="resetFields()">reset</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            const dob = document.getElementById('dob').value;
+            const ageInput = document.getElementById('age');
+            if (dob) {
+                const dobDate = new Date(dob);
+                const today = new Date();
+                let age = today.getFullYear() - dobDate.getFullYear();
+                const monthDiff = today.getMonth() - dobDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+                    age--;
+                }
+                ageInput.value = age;
+            } else {
+                alert("Please enter a valid date of birth");
+            }
+        }
+
+        function resetFields() {
+            document.getElementById('dob').value = '';
+            document.getElementById('age').value = '';
+        }
+    </script>
+</body>
+</html>
